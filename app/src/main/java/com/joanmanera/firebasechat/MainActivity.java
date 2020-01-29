@@ -45,26 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
       if(FirebaseAuth.getInstance().getCurrentUser() == null) {
          // Iniciamos Activity para Login/Registro
-         startActivityForResult(
-               AuthUI.getInstance()
-                     .createSignInIntentBuilder()
-                     .build(),
-               SIGN_IN_REQUEST_CODE
-         );
+         startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().build(), SIGN_IN_REQUEST_CODE);
       } else {
          // El usuario ya se ha autenticado.
          Toast.makeText(this,
-               "Bienvenido " + FirebaseAuth.getInstance()
-                     .getCurrentUser()
-                     .getDisplayName(),
-               Toast.LENGTH_LONG)
-               .show();
+               "Bienvenido " + FirebaseAuth.getInstance().getCurrentUser().getDisplayName(), Toast.LENGTH_LONG).show();
 
          setupFirestore();
       }
 
-      FloatingActionButton fab =
-            (FloatingActionButton)findViewById(R.id.fab);
+      FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
 
       fab.setOnClickListener(new View.OnClickListener() {
          @Override
@@ -124,9 +114,7 @@ public class MainActivity extends AppCompatActivity {
    }
 
    public void setupFirestore() {
-      username = FirebaseAuth.getInstance()
-            .getCurrentUser()
-            .getDisplayName();
+      username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
       db = FirebaseFirestore.getInstance();
       chatRef = db.collection("FirebaseChat");
 
