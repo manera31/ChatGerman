@@ -56,9 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
       if(FirebaseAuth.getInstance().getCurrentUser() == null) {
          // Iniciamos Activity para Login/Registro
-<<<<<<< HEAD
-         startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().build(), SIGN_IN_REQUEST_CODE);
-=======
          startActivityForResult(
                AuthUI.getInstance()
                      .createSignInIntentBuilder()
@@ -66,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
                        .build(),
                SIGN_IN_REQUEST_CODE
          );
->>>>>>> cfea3837916a32dd782f0aa378beb419c47e5ec0
       } else {
          // El usuario ya se ha autenticado.
          Toast.makeText(this,
