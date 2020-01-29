@@ -28,6 +28,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
    private static final int SIGN_IN_REQUEST_CODE = 1001;
@@ -43,9 +46,27 @@ public class MainActivity extends AppCompatActivity {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
 
+      // Choose authentication providers
+      List<AuthUI.IdpConfig> providers = Arrays.asList(
+              new AuthUI.IdpConfig.EmailBuilder().build(),
+              new AuthUI.IdpConfig.PhoneBuilder().build(),
+              new AuthUI.IdpConfig.GoogleBuilder().build(),
+              new AuthUI.IdpConfig.FacebookBuilder().build(),
+              new AuthUI.IdpConfig.TwitterBuilder().build());
+
       if(FirebaseAuth.getInstance().getCurrentUser() == null) {
          // Iniciamos Activity para Login/Registro
+<<<<<<< HEAD
          startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().build(), SIGN_IN_REQUEST_CODE);
+=======
+         startActivityForResult(
+               AuthUI.getInstance()
+                     .createSignInIntentBuilder()
+                       .setAvailableProviders(providers)
+                       .build(),
+               SIGN_IN_REQUEST_CODE
+         );
+>>>>>>> cfea3837916a32dd782f0aa378beb419c47e5ec0
       } else {
          // El usuario ya se ha autenticado.
          Toast.makeText(this,
@@ -68,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
                      @Override
                      public void onSuccess(DocumentReference documentReference) {
                         // Si el mensaje se ha enviado correctamente
-                        recyclerView.smoothScrollToPosition(adapter.getItemCount()-1);
 
                      }
                   })
@@ -139,8 +159,8 @@ public class MainActivity extends AppCompatActivity {
       adapter = new ChatMessageAdapter(options);
       adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
          @Override
-         public void onChanged() {
-            super.onChanged();
+         public void onItemRangeInserted(int positionStart, int itemCount) {
+            super.onItemRangeInserted(positionStart, itemCount);
             recyclerView.smoothScrollToPosition(adapter.getItemCount()-1);
          }
       });
