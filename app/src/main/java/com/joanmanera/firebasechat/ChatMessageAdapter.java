@@ -18,8 +18,10 @@ import java.util.Date;
 
 public class ChatMessageAdapter extends FirestoreRecyclerAdapter<ChatMessage,ChatMessageAdapter.ChatMessageHolder> {
 
-   public ChatMessageAdapter(@NonNull FirestoreRecyclerOptions<ChatMessage> options) {
+   private IChatMessageListener listener;
+   public ChatMessageAdapter(@NonNull FirestoreRecyclerOptions<ChatMessage> options, IChatMessageListener listener) {
       super(options);
+      this.listener = listener;
    }
 
    @Override
@@ -61,6 +63,13 @@ public class ChatMessageAdapter extends FirestoreRecyclerAdapter<ChatMessage,Cha
          tvUsername = itemView.findViewById(R.id.tvUsername);
          tvTime = itemView.findViewById(R.id.tvTime);
          tvMessage = itemView.findViewById(R.id.tvMessage);
+
+         itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               listener.onChatMessageListener(getAdapterPosition());
+            }
+         });
       }
    }
 }

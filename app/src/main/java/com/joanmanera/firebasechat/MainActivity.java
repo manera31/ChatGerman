@@ -31,7 +31,7 @@ import com.google.firebase.firestore.Query;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IChatMessageListener{
 
    private static final int SIGN_IN_REQUEST_CODE = 1001;
    private FirebaseFirestore db;
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
        */
 
-      adapter = new ChatMessageAdapter(options);
+      adapter = new ChatMessageAdapter(options, this);
       adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
          @Override
          public void onItemRangeInserted(int positionStart, int itemCount) {
@@ -202,5 +202,10 @@ public class MainActivity extends AppCompatActivity {
                });
       }
       return true;
+   }
+
+   @Override
+   public void onChatMessageListener(int chatMessage) {
+      Toast.makeText(this, String.valueOf(chatMessage), Toast.LENGTH_SHORT).show();
    }
 }
